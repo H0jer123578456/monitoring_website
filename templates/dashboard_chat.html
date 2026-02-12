@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard & Messenger</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="{{ url_for('static', filename='video/green-bg.mp4') }}" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <h2>Menu</h2>
+    <a href="#capteurs">📊 Capteurs</a>
+    <a href="#messagerie">💬 Messagerie</a>
+    <a href="{{ url_for('logout') }}">🔒 Déconnexion</a>
+</div>
+
+<!-- Bouton toggle sidebar -->
+<button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+<div class="container">
+
+    <!-- Section Capteurs -->
+    <section id="capteurs">
+        <header>
+            <h1>📊 Dashboard BME680</h1>
+        </header>
+
+        <div class="cards">
+            <div class="card">
+                <h3>🌡 Température</h3>
+                <p>{{ sensor_data.temperature }} °C</p>
+            </div>
+            <div class="card">
+                <h3>💧 Humidité</h3>
+                <p>{{ sensor_data.humidity }} %</p>
+            </div>
+            <div class="card">
+                <h3>⏱ Pression</h3>
+                <p>{{ sensor_data.pressure }} hPa</p>
+            </div>
+            <div class="card">
+                <h3>🧪 Gaz</h3>
+                <p>{{ sensor_data.gas }} Ω</p>
+            </div>
+        </div>
+
+        <!-- Card blanche sous les capteurs -->
+        <div class="card-white">
+            <p>Informations supplémentaires ou alertes ici…</p>
+        </div>
+
+        <p class="time">Dernière mise à jour : {{ sensor_data.time }}</p>
+    </section>
+
+    <!-- Section Messagerie -->
+    <section id="messagerie">
+        <header>
+            <h1>💬 Messagerie</h1>
+        </header>
+        <ul class="messages">
+            {% if messages %}
+                {% for msg in messages %}
+                    <li class="message">
+                        <span class="sender">{{ msg.sender }}</span>
+                        <span class="time">{{ msg.time }}</span>
+                        <p>{{ msg.text }}</p>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <li class="no-messages">Aucun message reçu…</li>
+            {% endif %}
+        </ul>
+    </section>
+</div>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+}
+</script>
+
+</body>
+</html>

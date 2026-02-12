@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Données Sensorielles</title>
+
+<!-- CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<!-- Socket.IO -->
+<script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+
+<body>
+
+<!-- Vidéo de fond -->
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="{{ url_for('static', filename='video/green-bg.mp4') }}" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<!-- Topbar -->
+<div class="topbar">
+  <div class="topbar-left">
+    <a href="{{ url_for('capteurs') }}">Les Données Sensorielles</a>
+    <a href="{{ url_for('messagerie') }}">Messagerie</a>
+  </div>
+  <div class="topbar-right">
+    <a href="{{ url_for('logout') }}" class="logout-btn">Déconnexion</a>
+  </div>
+</div>
+
+<!-- Section capteurs -->
+<section class="sensor-section">
+
+<div class="white-band top-band">
+   <h2 class="section-title">Les Données Sensorielles</h2> </div>
+<div class="sensor-content">
+
+    <div class="cards-container">
+      <div class="cards">
+
+        <div class="card">
+          <h3>Température</h3>
+          <p class="value"><span id="temp">{{ sensor_data.temperature }}</span> °C</p>
+        </div>
+
+        <div class="card">
+          <h3>Humidité</h3>
+          <p class="value"><span id="hum">{{ sensor_data.humidity }}</span> %</p>
+        </div>
+
+        <div class="card">
+          <h3>Pression</h3>
+          <p class="value"><span id="press">{{ sensor_data.pressure }}</span> hPa</p>
+        </div>
+
+        <div class="card">
+          <h3>Gas</h3>
+          <p class="value"><span id="gas">{{ sensor_data.gas }}</span> Ω</p>
+        </div>
+
+
+      </div>
+
+      <p class="last-update">
+        Dernière mise à jour : <span id="time">{{ sensor_data.time }}</span>
+      </p>
+
+      <p class="last-update">
+        Nœud source : <span id="node">--</span>
+      </p>
+    </div>
+
+  </div>
+
+  <div class="white-band bottom-band"></div>
+</section>
+
+<!-- Socket.IO -->
+<script>
+  const socket = io();
+
+  socket.on("connect", () => {
+    console.log("✅ Connecté au serveur Socket.IO");
+  });
+
+  socket.on("sensor_update", (payload) => {
+    console.log("📡 Capteurs reçus :", payload);
+
+    const data = payload.data;
+
+    document.getElementById("temp").innerText  = data.temperature ?? "--";
+    document.getElementById("hum").innerText   = data.humidity ?? "--";
+    document.getElementById("press").innerText = data.pressure ?? "--";
+    document.getElementById("gas").innerText  = data.gas ?? "--";
+    document.getElementById("time").innerText  = data.time ?? "--";
+    document.getElementById("node").innerText  = payload.node ?? "--";
+  });
+</script>
+
+</body>
+</html>

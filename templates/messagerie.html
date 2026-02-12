@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Messagerie</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Socket.IO client -->
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+</head>
+
+<body>
+
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="{{ url_for('static', filename='video/green-bg2.mp4') }}" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<div class="topbar">
+    <div class="topbar-left">
+        <a href="{{ url_for('capteurs') }}">Les Données Sensorielles</a>
+        <a href="{{ url_for('messagerie') }}">Messagerie</a>
+    </div>
+    <div class="topbar-right">
+        <a href="{{ url_for('logout') }}" class="logout-btn">Déconnexion</a>
+    </div>
+</div>
+
+<div class="chat-container">
+        <header>
+            <h1>Messagerie</h1>
+        </header>
+        
+        <div class="messages">
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="message">
+                        <span class="sender">{{ msg.sender }}</span>
+                        <span class="time">{{ msg.time }}</span>
+                        <p>{{ msg.text }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-messages">Aucun message reçu pour le moment...</p>
+            {% endif %}
+        </div>
+    </div>
+
+<script>
+    const socket = io();
+    const messagesList = document.getElementById("messages");
+    const input = document.getElementById("message-input");
+
+    function scrollToBottom() {
+        messagesList.scrollTop = messagesList.scrollHeight;
+    }
+
+    function addMessage(msg) {
+        const li = document.createElement("li");
+        li.className = "message";
+        li.innerHTML = `
+            <span class="sender">${msg.sender}</span>
+            <span class="time">${msg.time}</span>
+            <p>${msg.text}</p>
+        `;
+        messagesList.appendChild(li);
+    }
+
+    // Charger l'historique via Socket.IO (optionnel si déjà injecté via Jinja)
+    socket.on("load_messages", (msgs) => {
+        messagesList.innerHTML = "";
+        if (msgs.length === 0) {
+            const li = document.createElement("li");
+            li.className = "no-messages";
+            li.textContent = "Aucun message reçu…";
+            messagesList.appendChild(li);
+        } else {
+            msgs.forEach(msg => addMessage(msg));
+        }
+        scrollToBottom();
+    });
+
+    // Nouveau message reçu
+    socket.on("new_message", (msg) => {
+        const emptyMsg = document.querySelector(".no-messages");
+        if (emptyMsg) emptyMsg.remove();
+        addMessage(msg);
+        scrollToBottom();
+    });
+
+    socket.on("connect", () => {
+        console.log("✅ Connecté au serveur Socket.IO");
+    });
+
+    window.onload = scrollToBottom;
+</script>
+
+</body>
+</html>

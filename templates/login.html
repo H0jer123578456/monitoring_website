@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Meshtastic</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<video autoplay muted loop playsinline id="bg-video">
+    <source src="{{ url_for('static', filename='video/green-bg.mp4') }}" type="video/mp4">
+</video>
+<div class="overlay"></div>
+
+<div class="login-container">
+    <h1>Connexion</h1>
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="POST">
+        <label>Utilisateur</label>
+        <input type="text" name="username" required>
+        <label>Mot de passe</label>
+        <input type="password" name="password" required>
+        <button type="submit">Se connecter</button>
+    </form>
+</div>
+
+</body>
+</html>

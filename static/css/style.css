@@ -1,0 +1,437 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* ===== Body & Font ===== */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    color: #fff;
+    justify-content: center; /* centre horizontalement */
+    align-items: center;
+    background: #0a321e;
+    overflow-x: hidden;
+    padding: 0;
+    display: flex;
+}
+
+/* ===== Video Background ===== */
+#bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
+
+/* ===== LOGIN ===== */
+.login-container {
+    background: rgba(255,255,255,0.95);
+    padding: 45px 35px;
+    border-radius: 30px;
+    width: 360px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.login-container h1 {
+    color: #7ab80e;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-weight: 600;
+    opacity: 1;
+}
+
+/* Labels */
+.login-container label {
+  display: block;
+  text-align: left;
+  margin: 15px 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #301907;   /* ✅ PLUS VISIBLE */
+  opacity: 1;
+}
+
+/* ===== INPUTS UTILISATEUR & MOT DE PASSE VERT ===== */
+.login-container input {
+    width: 340px;
+    padding: 12px 14px;
+    margin-top: -2px;
+    border-radius: 12px;
+    border: 2px solid #7ab80e;      /* bordure verte */
+    font-size: 1em;
+    color: #301907;                  /* texte vert foncé */
+    font-weight: 500;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+    opacity: 1;
+}
+
+.login-container input::placeholder {
+    color: #7ab80e;                  /* placeholder vert clair */
+}
+
+.login-container input:focus {
+    border-color: #7ab80e;           /* bordure verte plus claire au focus */
+    box-shadow: 0 0 8px rgba(34,197,94,0.5); /* glow vert */
+}
+
+/* ===== BOUTON LOGIN ===== */
+.login-container button {
+    width: 200px;
+    padding: 14px;
+    margin-top: 30px;
+    border-radius: 12px;
+    border: none;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    background: #7ab80e;
+    color: #fff;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(34,197,94,0.4);
+    opacity: 1;
+}
+
+.login-container button:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(34,197,94,0.6);
+}
+
+/* ===== TOP BAR ===== */
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.405);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    box-sizing: border-box;
+    z-index: 1000;
+
+}
+
+/* ===== LEFT MENU ===== */
+.topbar-left {
+    display: flex;
+    gap: 20px;
+}
+
+.topbar-left a {
+    color: #c7dfa7;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.topbar-left a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* ===== RIGHT (LOGOUT) ===== */
+.topbar-right .logout-btn {
+    background: #03421b;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.topbar-right .logout-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.05);
+}
+
+/* ===== PUSH CONTENT DOWN ===== */
+body {
+    padding-top: 70px; /* hauteur de la topbar */
+}
+
+
+ /*===== Les Données Sensorielles =====*/
+.sensor-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;               /* Prend toute la hauteur visible de l'écran */
+  overflow: hidden;
+}
+
+/* Bandes blanches */
+.white-band {
+  position: fixed;
+  width: 100%;
+  height: 140px;               /* Hauteur de tes bandes blanches */
+  background-color: rgba(255, 255, 255, 0.805);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*border-radius: 50px 50px 50px 50px;*/
+  z-index: 300;                  /* Au-dessus de la vidéo et de l'overlay */
+}
+
+/* Bande du haut : juste en dessous du topbar */
+.top-band {
+  top: 65px; 
+  height: 85px;                     /* Colle en haut de la page */
+  left: 260px;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.805);
+  border-radius: 100px 100px 100px 100px;
+  width: 900px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttom-band {
+  display: none;
+}
+
+/* Titre dans la bande du haut */
+.section-title {
+  color: #532D1C;              /* Vert foncé */
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding-top: 9px;
+
+}
+
+/* Conteneur du contenu central (entre les deux bandes) */
+.sensor-content {
+  position: relative;
+  height: calc(100vh - 200px); /* 120px haut + 120px bas */
+  margin-top: 120px;           /* Descend sous la bande haute */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+/* Vidéo en background (remplit toute la section) */
+.background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+/* Contenu au-dessus de la vidéo */
+.cards-container {
+  position: relative;
+  z-index: 2;                  /* Au-dessus de la vidéo */
+  width: 100%;
+  max-width: 1200px;
+  text-align: center;
+}
+
+/* Overlay sombre semi-transparent pour meilleure lisibilité */
+.cards-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0); /* Ajuste l'opacité si besoin */
+  z-index: -1;
+  border-radius: 16px;
+}
+
+/* Grille des cartes */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  padding: 40px;
+  justify-items: center;             /* Centre chaque card */
+  background-color: transparent;
+}
+
+.card {
+  width: 240px;                      /* ✅ largeur fixe */
+  height: 200px;                     /* ✅ hauteur fixe */
+  background: rgba(255, 255, 255);
+  border-radius: 18px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Effet hover (optionnel mais joli) */
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
+}
+
+.card h3 {
+  color: #583924;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.card .value {
+  color: #C29666;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.last-update {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .card .value {
+    font-size: 2rem;
+  }
+  
+  .white-band {
+    height: 100px; /* Bande un peu plus petite sur mobile */
+  }
+  
+  .sensor-content {
+    height: calc(100vh - 200px); /* Ajustement pour bandes plus petites */
+    margin-top: 100px;
+  }
+}
+
+
+/* ===================messengerie =============== */
+.chat-container {
+    width: 650px;
+    max-width: 95%;
+    height: 80vh;
+    background: #dfdfd393;
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow:
+         0 25px 40px rgba(0, 0, 0, 0.25),
+         inset 0 0 40px rgba(34, 197, 94, 0.15);
+    animation: fadeUp 0.8s ease;
+    border-radius: 15px 15px 15px 15px;
+}
+
+header {
+    background: #678e34;
+    color: white;
+    padding: 18px;
+    text-align: center;
+    position: relative;
+    border-radius: 15px 15px 0 0;
+    height: 70px;
+    font-family: "Gill Sans Extrabold";
+    text-size-adjust: 25px;
+    letter-spacing: 2px;
+}
+
+.messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    flex-direction: column;
+    align-items: center; /* ⭐ CENTRAGE DES BULLES */
+    background: transparent;  
+    display: flex;
+  
+}
+
+.message {
+    background: #678e34;
+    color: white;
+    padding: 14px;
+    margin: 12px 0;
+    max-width: 80%;
+    border-radius: 18px 18px 18px 4px;
+    font-size: 0.9em;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    width: 420px;              /* ✅ largeur FIXE */
+    max-width: 420px;
+    min-height: 70px; 
+    
+}
+
+.sender {
+    font-weight: 600;
+    font-size: 0.8em;
+}
+
+.time {
+    float: right;
+    font-size: 0.7em;
+    opacity: 0.8;
+}
+
+.no-messages {
+    text-align: center;
+    color: #1e8449;
+    font-style: italic;
+}
+
+
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 992px) {
+    .container { margin-left: 200px; padding: 15px; }
+    .sidebar { width: 200px; }
+    .card { width: 145px; padding: 15px; }
+}
+
+@media screen and (max-width: 768px) {
+    .container { margin-left: 0; padding: 15px; }
+    .container.full-width { margin-left: 0; }
+    .sidebar { position: fixed; width: 180px; left: -220px; height: 100%; }
+    .sidebar.show { transform: translateX(220px); }
+    .sidebar-toggle { left: 15px; }
+    .cards { justify-content: center; }
+    .card { width: 45%; margin-bottom: 15px; }
+}
+
+@media screen and (max-width: 480px) {
+    .card { width: 90%; }
+    header { font-size: 1em; padding: 10px; }
+    .messages { max-height: 300px; padding: 10px; }
+    .login-container { width: 90%; padding: 25px; top: 45%; transform: translateY(-50%); }
+}
